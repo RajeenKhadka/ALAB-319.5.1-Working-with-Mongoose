@@ -19,13 +19,5 @@ app.get("/", (req, res) => {
   res.send("You have arrived");
 });
 
+//localhost:5052/api/vegetables
 app.use("/api/vegetables", vegetableRoutes);
-
-// app.get("/vegetables", async (req, res) => {
-//   try {
-//     const foundVegetables = await Vegetable.find({});
-//     res.status(200).render("vegetables/Index", { Vegetables: foundVegetables });
-//   } catch (err) {
-//     res.status(400).send(err);
-//   }
-// });
