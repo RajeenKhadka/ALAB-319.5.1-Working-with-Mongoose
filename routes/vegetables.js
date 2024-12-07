@@ -63,4 +63,32 @@ These documents are stored in the foundVegetables variable as an array of JavaSc
   }
 });
 
+//Delete by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedFruit = await Vegetable.findByIdAndDelete(req.params.id);
+    console.log(deletedFruit);
+    res.status(200).redirect("/vegetables");
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+//CREATE
+router.post("/", async (req, res) => {
+  console.log(req.body);
+
+  if (req.body.readyToEat === "on") {
+    req.body.readyToEat = true;
+  } else {
+    req.body.readyToEat = false;
+  }
+  try {
+    const createdVegetable = await Vegetable.create(req.body);
+    res.status(200).redirect("/vegetables");
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 module.exports = router;
