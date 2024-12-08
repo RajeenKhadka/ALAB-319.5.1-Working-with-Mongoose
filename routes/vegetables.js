@@ -91,4 +91,27 @@ router.post("/", async (req, res) => {
   }
 });
 
+//Edit
+router.put("/:id", async (req, res) => {
+  if (req.body.readyToEat === "on") {
+    req.body.readyToEat = true;
+  } else {
+    req.body.readyToEat = false;
+  }
+
+  try {
+    const updatedVegetable = await Vegetable.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    console.log(updatedVegetable);
+
+    res.status(200).redirect("/vegetables");
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 module.exports = router;

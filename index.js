@@ -48,6 +48,26 @@ app.get("/vegetables", async (req, res) => {
   }
 });
 
+//Route for New View
 app.get("/vegetables/new", (req, res) => {
   res.render("vegetables/New");
+});
+
+//Route for Edit View
+app.get("/vegetables/:id/edit", async (req, res) => {
+  try {
+    console.log(`this is the req.params.id value ${req.params.id}`);
+
+    const foundVegetable = await Vegetable.findById(req.params.id);
+
+    console.log("==============================================");
+    console.log(`This is the value of ${foundVegetable}`);
+
+    res.render("vegetables/Edit", {
+      vegetables: foundVegetable,
+      id: req.params.id,
+    });
+  } catch (err) {
+    res.send(err).status(400);
+  }
 });
